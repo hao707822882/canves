@@ -1,29 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
     <meta charset="UTF-8">
-    <title></title>
+    <script src="jquery-2.1.4.min.js"></script>
     <script src="fabric.js"></script>
 </head>
 <body>
 
-<canvas id="c" style="height: 600px;width: 200px;" width="650" height="650"></canvas>
+<canvas id="c" width="1902" height="600"></canvas>
 
 
 <script>
-    var canvas = new fabric.Canvas('c', {width: 200, height: 600});
+    var canvas = new fabric.Canvas('c');
     var imgElement = document.getElementById('my-image');
 
     function show() {
         var imgInstance = new fabric.Image.fromURL("1.jpg", function (img) {
-
+            img.left = img.width / 2
+            img.top = img.height / 2
             canvas.add(img);
-            var text = new fabric.Text('hello world', {
-                left: 10, top: 20
-            });
-            text=text.setColor("yellow")
-            canvas.add(text);
+            canvas.add(getText("安妮", 300, 120));
+            canvas.add(getText(parseInt(getDays(getDate(2013, 1, 4, 0, 0, 0), new Date())) + "", 45, 140))
+            canvas.add(getText(100 + "", 100, 200));
+            canvas.add(getText(66 + "", 150, 200));
+            canvas.add(getText(winPrecent(100, 66) * 100 + "%", 250, 200));
         });
+    }
+    function getText(name, x, y) {
+        var text = new fabric.Text(name, {
+            left: x, top: y, fontSize: 20
+        });
+        return text.setColor("#c6b98d")
+    }
+
+
+    function winPrecent(total, win) {
+        return (win / total).toFixed(2)
+    }
+
+    function getDays(from, to) {
+        return (to - from) / 1000 / 3600 / 24
+    }
+
+    function getDate(year, month, day, hour, min, second) {
+        return new Date(year, month, day, hour, min, second);
     }
 
     console.log(canvas.toDataURL('png'))
