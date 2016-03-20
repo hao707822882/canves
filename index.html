@@ -20,12 +20,15 @@
     var canvas = new fabric.Canvas('c');
     var imgElement = document.getElementById('my-image');
 
+    var text = null;
+
     function show() {
-        var imgInstance = new fabric.Image.fromURL("1.jpg", function (img) {
+        var imgInstance = new fabric.Image.fromURL("2.jpg", function (img) {
             img.left = img.width / 2
             img.top = img.height / 2
             canvas.add(img);
-            canvas.add(getText("安妮", 300, 120));
+            text = getText("安妮", 300, 120);
+            canvas.add(text);
             canvas.add(getText(parseInt(getDays(getDate(2013, 1, 4, 0, 0, 0), new Date())) + "", 45, 140))
             canvas.add(getText(100 + "", 100, 200));
             canvas.add(getText(66 + "", 150, 200));
@@ -54,6 +57,11 @@
 
     console.log(canvas.toDataURL('png'))
     show()
+    function refush() {
+        text.setText("xxxxx")
+        canvas.renderAll()
+    }
 </script>
+<button onclick="refush()">xxx</button>
 </body>
 </html>
